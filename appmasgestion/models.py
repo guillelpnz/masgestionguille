@@ -83,7 +83,7 @@ class Clientes(models.Model):
 
     #vendido, ofertado, agendado, no interesa
     estado = models.CharField(
-        max_length=20,
+        max_length=100,
         choices=ESTADO,
         default=None,
         null=True,
