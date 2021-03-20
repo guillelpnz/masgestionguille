@@ -1,4 +1,4 @@
-from djongo import models
+from django.db import models
 from django.utils import timezone
 # Aquí creamos las BBDD como si fueran básicamente clases
 
