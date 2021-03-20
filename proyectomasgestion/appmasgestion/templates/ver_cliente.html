@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<main class="container col-10">
+    <div class="mt-4 mb-5 container d-flex justify-content-center">
+        <h1 id="h1-registro">
+            {% for cliente in ver_cliente %}
+            {{cliente.cliente}}
+
+            {% endfor %}
+        </h1>
+    </div>
+
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">DNI</th>
+            <th scope="col">Comercial</th>
+            <th scope="col">CP</th>
+            <th scope="col">Origen</th>
+            <th scope="col">Segmento</th>
+            <th scope="col">Movil</th>
+            <th scope="col">Fijo</th>
+            <th scope="col">Operador</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha contacto</th>
+            <th scope="col">Fecha agendado</th>
+            <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in ver_cliente %}
+            <tr>
+                <td>{{cliente.DNI}}</td>
+                <td>{{cliente.comercial}}</td>
+                <td>{{cliente.CP}}</td>
+                <td>{{cliente.origen}}</td>
+                <td>{{cliente.segmento}}</td>
+                <td>{{cliente.movil}}</td>
+                <td>{{cliente.fijo}}</td>
+                <td>{{cliente.operador}}</td>
+                <td>{{cliente.estado}}</td>
+                <td>{{cliente.fecha_contacto}}</td>
+                <td>{{cliente.fecha_agendado}}</td>
+                <td>
+                    <form method="POST" action='/editar-cliente'> {% csrf_token  %}
+                        <input type="hidden" name="hidden-dni" value="{{cliente.DNI}}">
+                        <button type="submit" class="btn btn-warning">
+                          Editar cliente
+                        </button>
+                      </form>
+                </td>
+                
+            </tr>
+        </tbody>
+        </table>  
+            <div class="d-flex mt-5 bg-light border rounded flex-wrap">
+                <button type="button" class="btn btn-warning mr-5 btn-lg">Tarifas</button>
+                {% if cliente.FMC_porta_FIJO %}
+                <button type="button" class="btn btn-primary btn-sm m-3">FMC_porta_FIJO x {{cliente.FMC_porta_FIJO}}</button>
+                {% endif %}
+
+                {% if cliente.FMC_Fijo_Nuevo %}
+                <button type="button" class="btn btn-primary btn-sm m-3">FMC_Fijo_Nuevo x {{cliente.FMC_Fijo_Nuevo}}</button>
+                {% endif %}
+
+                {% if cliente.POSPAGO_MO %}
+                <button type="button" class="btn btn-primary btn-sm m-3">POSPAGO_MO x {{cliente.POSPAGO_MO}}</button>
+                {% endif %}
+
+                {% if cliente.POSPAGO_MB_DUO_MB %}
+                <button type="button" class="btn btn-primary btn-sm m-3">POSPAGO_MB_DUO_MB x {{cliente.POSPAGO_MB_DUO_MB}}</button>
+                {% endif %}
+
+                {% if cliente.CROSS_Fijo_Portado %}
+                <button type="button" class="btn btn-primary btn-sm m-3">CROSS_Fijo_Portado x {{cliente.CROSS_Fijo_Portado}}</button>
+                {% endif %}
+
+                {% if cliente.CROSS_Fijo_Nuevo %}
+                <button type="button" class="btn btn-primary btn-sm m-3">CROSS_Fijo_Nuevo x {{cliente.CROSS_Fijo_Nuevo}}</button>
+                {% endif %}
+
+                {% if cliente.RENUEVO %}
+                <button type="button" class="btn btn-primary btn-sm m-3">RENUEVO x {{cliente.RENUEVO}}</button>
+                {% endif %}
+
+                {% if cliente.RENUEVO_CON_SUBIDA %}
+                <button type="button" class="btn btn-primary btn-sm m-3">RENUEVO_CON_SUBIDA x {{cliente.RENUEVO_CON_SUBIDA}}</button>
+                {% endif %}
+
+                {% if cliente.TV %}
+                <button type="button" class="btn btn-primary btn-sm m-3">TV x {{cliente.TV}}</button>
+                {% endif %}
+
+                {% if cliente.SEGURO %}
+                <button type="button" class="btn btn-primary btn-sm m-3">SEGURO x {{cliente.SEGURO}}</button>
+                {% endif %}
+
+                {% if cliente.ACCESORIOS %}
+                <button type="button" class="btn btn-primary btn-sm m-3">ACCESORIOS x {{cliente.ACCESORIOS}}</button>
+                {% endif %}
+
+                {% if cliente.TERMINAL_LIBRE %}
+                <button type="button" class="btn btn-primary btn-sm m-3">TERMINAL_LIBRE x {{cliente.TERMINAL_LIBRE}}</button>
+                {% endif %}
+
+                {% if cliente.CAMBIO_TECNOLOGIA %}
+                <button type="button" class="btn btn-primary btn-sm m-3">CAMBIO_TECNOLOGIA x {{cliente.CAMBIO_TECNOLOGIA}}</button>
+                {% endif %}
+
+                {% if cliente.PREPAGO %}
+                <button type="button" class="btn btn-primary btn-sm m-3">PREPAGO x {{cliente.PREPAGO}}</button>
+                {% endif %}
+
+                {% if cliente.SEGURO_FAMILIA %}
+                <button type="button" class="btn btn-primary btn-sm m-3">SEGURO_FAMILIA x {{cliente.SEGURO_FAMILIA}}</button>
+                {% endif %}
+
+                {% if cliente.PEPENERGY %}
+                <button type="button" class="btn btn-primary btn-sm m-3">PEPENERGY x {{cliente.PEPENERGY}}</button>
+                {% endif %}
+
+                {% if cliente.ENERGY_GO %}
+                <button type="button" class="btn btn-primary btn-sm m-3">ENERGY_GO x {{cliente.ENERGY_GO}}</button>
+                {% endif %}
+                
+                {% if cliente.SMART_HOME %}
+                <button type="button" class="btn btn-primary btn-sm m-3">SMART_HOME x {{cliente.SMART_HOME}}</button>
+                {% endif %}
+
+                {% if cliente.MO_ADICIONAL %}
+                <button type="button" class="btn btn-primary btn-sm m-3">MO_ADICIONAL x {{cliente.MO_ADICIONAL}}</button>
+                {% endif %}
+            </div>
+        </tr>
+        {% endfor %}
+        
+
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<main class="container col-10 d-flex flex-column justify-content-center">
+    <div class="row d-flex justify-content-center mb-5">
+        <h1>Buscador de clientes</h1>
+    </div>
+    <div class="row d-flex flex-row justify-content-center align-items-center flex-nowrap">
+        <form action="/buscador-clientes" class="input-group rounded d-flex flex-row justify-content-center align-items-center" method="POST">{% csrf_token %}
+            <input name="input-busqueda" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
+            aria-describedby="search-addon" />
+        
+            <select class="selectpicker mr-3 ml-3" data-live-search="true" title="Filtro" name="filtro">
+                <option name="cliente" value="cliente">Nombre</option>
+                <option name="DNI" value="DNI">DNI</option>
+                <option name="CP" value="CP">CP</option>
+                <option name="comercial" value="comercial">Comercial</option>
+                <option name="origen" value="origen">Origen</option>
+                <option name="segmento" value="segmento">Segmento</option>
+                <option name="movil" value="movil">Móvil</option>
+                <option name="fijo" value="fijo">Fijo</option>
+                <option name="operador" value="operador">Operador</option>
+                <option name="estado" value="estado">Estado</option>
+            </select>
+
+            <div class="d-flex flex-column mr-3 mb-4">
+                <label for="fecha_inicio">Fecha inicio</label><input type="date" name="fecha_inicio" class="datepicker hasDatepicker" id="fecha_inicio">
+            </div>
+            <div class="d-flex flex-column mb-4">
+                <label for="fecha_final">Fecha final</label><input type="date" name="fecha_final" class="datepicker hasDatepicker" id="fecha_final">
+            </div>
+            
+            <select class="selectpicker mr-3 ml-3" name="tarifas" data-live-search="true" multiple title="Tarifas">
+                <option name="FMC_porta_FIJO" value="FMC_porta_FIJO">FMC_porta_FIJO</option>
+                <option name="FMC_Fijo_Nuevo" value="FMC_Fijo_Nuevo">FMC_Fijo_Nuevo</option>
+                <option name="POSPAGO_MO" value="POSPAGO_MO">POSPAGO_MO</option>
+                <option name="POSPAGO_MB_DUO_MB" value="POSPAGO_MB_DUO_MB">POSPAGO_MB_DUO_MB</option>
+                <option name="CROSS_Fijo_Portado" value="CROSS_Fijo_Portado">CROSS_Fijo_Portado</option>
+                <option name="CROSS_Fijo_Nuevo" value="CROSS_Fijo_Nuevo">CROSS_Fijo_Nuevo</option>
+                <option name="RENUEVO" value="RENUEVO">RENUEVO</option>
+                <option name="RENUEVO_CON_SUBIDA" value="RENUEVO_CON_SUBIDA">RENUEVO_CON_SUBIDA</option>
+                <option name="TV" value="TV">TV</option>
+                <option name="SEGURO" value="SEGURO">SEGURO</option>
+                <option name="ACCESORIOS" value="ACCESORIOS">ACCESORIOS</option>
+                <option name="TERMINAL_LIBRE" value="TERMINAL_LIBRE">TERMINAL_LIBRE</option>
+                <option name="CAMBIO_TECNOLOGIA" value="CAMBIO_TECNOLOGIA">CAMBIO_TECNOLOGIA</option>
+                <option name="PREPAGO" value="PREPAGO">PREPAGO</option>
+                <option name="SEGURO_FAMILIA" value="SEGURO_FAMILIA">SEGURO_FAMILIA</option>
+                <option name="PEPENERGY" value="PEPENERGY">PEPENERGY</option>
+                <option name="ENERGY_GO" value="ENERGY_GO">ENERGY_GO</option>
+                <option name="SMART_HOME" value="SMART_HOME">SMART_HOME</option>
+                <option name="MO_ADICIONAL" value="MO_ADICIONAL">MO_ADICIONAL</option>
+            </select>
+
+            <button type="submit" class="btn btn-success">
+                <svg class="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <div class="d-flex inline justify-content-center mb-3">
+      {% if clientes.has_previous %}
+        <button class="btn btn-primary mr-2" onclick="location.href='?page=1'" type="button">Primera</button>
+        <button class="btn btn-primary mr-2" onclick="location.href='?page={{ clientes.previous_page_number }}'" type="button">Ant</button>
+      
+      {% endif %}
+
+    <span class="current d-flex align-items-center">
+        Página {{ clientes.number }} de {{ clientes.paginator.num_pages }}.
+    </span>
+
+      {% if clientes.has_next %}
+      <button class="btn btn-primary ml-2 mr-2" onclick="location.href='?page={{ clientes.next_page_number }}'">Sig</button>
+      <button class="btn btn-primary" type="button" onclick="location.href='?page={{ clientes.paginator.num_pages }}'">Última</button>
+      {% endif %}
+    </div>
+
+    <form action="/descargar-csv" method="post" class="row d-flex inline justify-content-start mb-3">{% csrf_token  %}
+      <input type="hidden" name="descargar-csv" value="1">
+      <button class="btn btn-success">Descargar CSV</button>
+    </form>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Comercial</th>
+            <th scope="col">CP</th>
+            <th scope="col">Origen</th>
+            <th scope="col">Segmento</th>
+            <th scope="col">Movil</th>
+            <th scope="col">Fijo</th>
+            <th scope="col">Operador</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha contacto</th>
+            <th scope="col">Fecha agendado</th>
+            <th scope="col">Más info</th>
+            <th scope="col">Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cliente in clientes %}
+            <tr>
+              <td>{{cliente.cliente}}</td>
+              <td>{{cliente.DNI}}</td>
+              <td>{{cliente.comercial}}</td>
+              <td>{{cliente.CP}}</td>
+              <td>{{cliente.origen}}</td>
+              <td>{{cliente.segmento}}</td>
+              <td>{{cliente.movil}}</td>
+              <td>{{cliente.fijo}}</td>
+              <td>{{cliente.operador}}</td>
+              <td>{{cliente.estado}}</td>
+              <td>{{cliente.fecha_contacto}}</td>
+              <td>{{cliente.fecha_agendado}}</td>
+              <td>
+                <form method="POST" action='/ver-cliente'> {% csrf_token  %}
+                  <input type="hidden" name="hidden-dni" value="{{cliente.id}}">
+                  <button type="submit" class="btn btn-info">
+                    Ver cliente
+                  </button>
+                </form>
+              </td>
+              <td>
+                <form method="POST" action='/editar-cliente'> {% csrf_token  %}
+                  <input type="hidden" name="hidden-dni" value="{{cliente.id}}">
+                  <button type="submit" class="btn btn-warning">
+                    Editar cliente
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="d-flex inline justify-content-center mb-3">
+        {% if clientes.has_previous %}
+          <button class="btn btn-primary mr-2" onclick="location.href='?page=1'" type="button">Primera</button>
+          <button class="btn btn-primary mr-2" onclick="location.href='?page={{ clientes.previous_page_number }}'" type="button">Ant</button>
+        
+        {% endif %}
+  
+      <span class="current d-flex align-items-center">
+          Página {{ clientes.number }} de {{ clientes.paginator.num_pages }}.
+      </span>
+  
+        {% if clientes.has_next %}
+        <button class="btn btn-primary ml-2 mr-2" onclick="location.href='?page={{ clientes.next_page_number }}'">Sig</button>
+        <button class="btn btn-primary" type="button" onclick="location.href='?page={{ clientes.paginator.num_pages }}'">Última</button>
+        {% endif %}
+      </div>
+
+{% endblock %}

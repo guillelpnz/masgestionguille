@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block main %}
+<main class="container col-10 d-flex flex-column justify-content-center">
+    <div class="row d-flex justify-content-center mb-5">
+        <h1>Gestion de comerciales</h1>
+    </div>
+    <form action="/csv-gestion-comerciales" method="post" class="row d-flex inline justify-content-start mb-3">{% csrf_token  %}
+        <input type="text" name="nombre_comercial" value="{{nombre_comercial}}" hidden>
+        <input type="date" name="fecha_inicio" value="{{fecha_inicio}}" hidden>
+        <input type="date" name="fecha_final" value="{{fecha_final}}" hidden> 
+        <button class="btn btn-success">Descargar CSV</button>
+    </form>
+    <div class="d-flex flex-row justify-content-center align-items-center flex-nowrap">
+        <form action="/gestion-comerciales" method="post" class="d-flex flex-row justify-content-center align-items-center flex-nowrap">{% csrf_token %}
+            <input type="text" class="form-control mr-3" name="nombre_comercial" placeholder="Nombre comercial">
+            
+            <div class="d-flex flex-column mr-3 mb-4">
+                <label for="fecha_inicio">Fecha inicio</label><input type="date" name="fecha_inicio" class="datepicker hasDatepicker" id="fecha_inicio">
+            </div>
+            <div class="d-flex flex-column mb-4">
+                <label for="fecha_final">Fecha final</label><input type="date" name="fecha_final" class="datepicker hasDatepicker" id="fecha_final">
+            </div>
+
+            <button type="submit" class="btn btn-success ml-2">
+                <svg class="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">AGENDADO</th>
+            <th scope="col">LLAMADO</th>
+            <th scope="col">NO CONTESTA</th>
+            <th scope="col">NO EXISTE</th>
+            <th scope="col">NO INTERESADO</th>
+            <th scope="col">OFERTADO</th>
+            <th scope="col">VENDIDO</th>
+            <th scope="col">Total general</th>
+            <th scope="col">Total venta valor</th>
+            <th scope="col">Total ventas</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+                {% for k, v in contadores.items %}
+                <tr>
+                    {% for k2, v2 in v.items %}
+                    <td>{{v2}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

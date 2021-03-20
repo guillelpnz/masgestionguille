@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block main %}
+      <div class="d-flex justify-content-center container">
+          <main>
+            <div class="row d-flex justify-content-center mb-4">
+            <form class="input-group rounded col-4 mb-2" method="POST">{% csrf_token %}
+              <input name="input-busqueda" type="search" class="form-control rounded" placeholder="Búsqueda rápida" aria-label="Search"
+                aria-describedby="search-addon" />
+                <svg class="ml-2 mt-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </form>
+            </div>
+            <div class="row d-flex inline justify-content-center mb-3">
+              {% if clientes.has_previous %}
+                <button class="btn btn-primary mr-2" onclick="location.href='?page=1'" type="button">Primera</button>
+                <button class="btn btn-primary mr-2" onclick="location.href='?page={{ clientes.previous_page_number }}'" type="button">Ant</button>
+              
+              {% endif %}
+    
+              <span class="current d-flex align-items-center">
+                  Página {{ clientes.number }} de {{ clientes.paginator.num_pages }}.
+              </span>
+    
+              {% if clientes.has_next %}
+              <button class="btn btn-primary ml-2 mr-2" onclick="location.href='?page={{ clientes.next_page_number }}'">Sig</button>
+              <button class="btn btn-primary" type="button" onclick="location.href='?page={{ clientes.paginator.num_pages }}'">Última</button>
+              {% endif %}
+            </div>
+              <form action="/" method="post" class="row d-flex inline justify-content-start mb-3">{% csrf_token  %}
+                <input type="hidden" name="descargar-csv" value="1">
+                <button class="btn btn-success">Descargar CSV</button>
+              </form>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">DNI</th>
+                  <th scope="col">Comercial</th>
+                  <th scope="col">CP</th>
+                  <th scope="col">Origen</th>
+                  <th scope="col">Segmento</th>
+                  <th scope="col">Movil</th>
+                  <th scope="col">Fijo</th>
+                  <th scope="col">Operador</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Fecha contacto</th>
+                  <th scope="col">Fecha agendado</th>
+                  <th scope="col">Más info</th>
+                  <th scope="col">Editar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cliente in clientes %}
+                  <tr>
+                    <td>{{cliente.cliente}}</td>
+                    <td>{{cliente.DNI}}</td>
+                    <td>{{cliente.comercial}}</td>
+                    <td>{{cliente.CP}}</td>
+                    <td>{{cliente.origen}}</td>
+                    <td>{{cliente.segmento}}</td>
+                    <td>{{cliente.movil}}</td>
+                    <td>{{cliente.fijo}}</td>
+                    <td>{{cliente.operador}}</td>
+                    <td>{{cliente.estado}}</td>
+                    <td>{{cliente.fecha_contacto}}</td>
+                    <td>{{cliente.fecha_agendado}}</td>
+                    <td>
+                      <form method="POST" action='/ver-cliente'> {% csrf_token  %}
+                        <input type="hidden" name="hidden-dni" value="{{cliente.id}}">
+                        <button type="submit" class="btn btn-info">
+                          Ver cliente
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <form method="POST" action='/editar-cliente'> {% csrf_token  %}
+                        <input type="hidden" name="hidden-dni" value="{{cliente.id}}">
+                        <button type="submit" class="btn btn-warning">
+                          Editar cliente
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <div class="d-flex inline justify-content-center mb-3">
+              {% if clientes.has_previous %}
+                <button class="btn btn-primary mr-2" onclick="location.href='?page=1'" type="button">Primera</button>
+                <button class="btn btn-primary mr-2" onclick="location.href='?page={{ clientes.previous_page_number }}'" type="button">Ant</button>
+              
+              {% endif %}
+    
+          <span class="current d-flex align-items-center">
+              Página {{ clientes.number }} de {{ clientes.paginator.num_pages }}.
+          </span>
+    
+          {% if clientes.has_next %}
+          <button class="btn btn-primary ml-2 mr-2" onclick="location.href='?page={{ clientes.next_page_number }}'">Sig</button>
+          <button class="btn btn-primary" type="button" onclick="location.href='?page={{ clientes.paginator.num_pages }}'">Última</button>
+          {% endif %}
+        </div>
+</body>
+
+{% endblock %}
+
+<script>
+  function mostrarTarifas() {
+    return '<button type="button" class="btn btn-secondary btn-lg btn-static">tarifa</button>'
+  }
+</script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir cliente</title>
+    <link rel="stylesheet" href="../static/estilos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+  </head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <img id="main-icon" class="w-25" src="https://s2.lanzadigital.com/wp-content/uploads/2019/01/Logo-de-M%C3%A1sM%C3%B3vil.jpg">
+      <!-- <img id="main-icon" src="data:image/png;base64,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" alt="Logo"> -->
+
+        <div>
+          <ul class="navbar-nav">
+            <li>
+              <a class="nav-link nav-a" href="/">Home</a>
+            </li>
+
+            <li>
+              <a class="nav-link nav-a" href="anadir-cliente">Añadir cliente</a>
+            </li>
+
+            <li>
+              <a class="nav-link nav-a" href="buscador-clientes">Buscador clientes</a>
+            </li>
+
+            <li>
+              <a class="nav-link nav-a" href="gestion-comerciales">Gestión comerciales</a>
+            </li>
+
+            <!-- <li>
+              <div class="dropdown">
+                <button class="mt-2 ml-2 btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Ejercicios práctica 1
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/ejercicio1">Ejercicio 1</a>
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/ejercicio2">Ejercicio 2</a>
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/ejercicio3">Ejercicio 3</a>
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/ejercicio4">Ejercicio 4</a>
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/ejercicio5">Ejercicio 5</a>
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/ejercicio6">Ejercicio 6</a>
+                  <a class="dropdown-item" href="http://0.0.0.0:5000/svg">Ejercicio SVG</a>                  
+                </div>
+              </div>
+            </li> -->
+          </ul>
+        </div>
+    </nav>
+
+{% block main %}
+
+{% endblock %}
+
+</html>
