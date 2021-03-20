@@ -69,5 +69,7 @@ with open(CSV_PATH, newline='') as csvfile:
 
             if row[3] != '':
                 cliente=Clientes.objects.create(cliente=row[0],comercial=row[3],origen=row[1],fecha_contacto=fecha_contacto,DNI=row[4],segmento=row[5],CP=row[7],fijo=row[9],movil=row[10],operador=row[11],estado=row[12],motivo_no_interesa=row[13], fecha_agendado=fecha_agendado, fecha_venta=fecha_venta, FMC_porta_FIJO=row[16],FMC_Fijo_Nuevo=row[17],POSPAGO_MO=row[18],POSPAGO_MB_DUO_MB=row[19],CROSS_Fijo_Portado=row[20],CROSS_Fijo_Nuevo=row[21],RENUEVO=row[22],RENUEVO_CON_SUBIDA=row[23],TV=row[24],SEGURO=row[25],ACCESORIOS=row[26],TERMINAL_LIBRE=row[27],CAMBIO_TECNOLOGIA=row[28],PREPAGO=row[29],SEGURO_FAMILIA=row[30],PEPENERGY=row[31],ENERGY_GO=row[32],SMART_HOME=row[33],MO_ADICIONAL=row[34],notas=row[35])
+                print(cliente)
         else:
             i=i+1
+        print(i)

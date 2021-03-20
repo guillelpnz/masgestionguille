@@ -50,8 +50,8 @@ class Clientes(models.Model):
         null=True,
     )
 
-    movil = models.CharField(max_length=9, default=None, null=True) #
-    fijo = models.CharField(max_length=9, default=None, blank=True, null=True) #
+    movil = models.CharField(max_length=50, default=None, null=True) #
+    fijo = models.CharField(max_length=50, default=None, blank=True, null=True) #
 
     YOIGO, MOVISTAR, VODAFONE, ORANGE, DIGI, LOWI, JAZZTEL, GRUPOMM, OTROS = 'Yoigo', 'Movistar', 'Vodafone', 'Orange', 'Digi', 'Lowi', 'Jazztel', 'Grupo MasMovil', 'Otros'
 
