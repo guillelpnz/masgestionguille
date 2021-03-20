@@ -18,8 +18,8 @@ from django.urls import path
 from django.conf.urls import include
 
 urlpatterns = [
-    path('', include('app.urls')),
-    path('app/', include('app.urls')),
+    path('', include('appmasgestion.urls')),
+    path('app/', include('appmasgestion.urls')),
     path('admin/', admin.site.urls),
     # path('anadir-cliente', include('app.urls')),
     # path('editar-cliente', include('app.urls')),

@@ -26,7 +26,7 @@ SECRET_KEY = 'r!lh4*m_k8z0_qv-!lqcv4t69vefnz8niv_r^_33okh5it0ze^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['masgestionguille.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['mas-gestion.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'individual.urls'
+ROOT_URLCONF = 'proyectomasgestion.urls'
 
 TEMPLATES = [
     {
