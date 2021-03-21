@@ -131,6 +131,7 @@ def buscador_clientes(request):
         busqueda = request.POST.get("input-busqueda", "")
         fecha_inicio = request.POST.get("fecha_inicio")
         fecha_final = request.POST.get("fecha_final")
+        tarifas = request.POST.getlist("tarifas")
 
         consulta1=consulta2=consulta3=consulta4=consulta5=consulta6=consulta7=consulta8=consulta9=consulta10=consulta11=consulta12=consulta13=consulta14=consulta15=consulta16=consulta17=consulta18=consulta19=consulta20=consulta21=consulta22=Q()
 
@@ -157,7 +158,6 @@ def buscador_clientes(request):
                 elif filtro == "estado":
                     consulta1 = Q(estado__icontains=busqueda)
         
-        tarifas = request.POST.getlist("tarifas")
         if tarifas != '':
             if "FMC_porta_FIJO" in tarifas:
                 consulta2 = Q(FMC_porta_FIJO__gt=0)
