@@ -1,6 +1,8 @@
 from functools import partial
 from django import forms
 from appmasgestion.models import Clientes
+from django.core.exceptions import ValidationError
+
 
 class AnadirCliente(forms.ModelForm):
     cliente = forms.CharField(required=False, widget= forms.TextInput(attrs={'placeholder':'Nombre cliente', 'required':True}),
@@ -99,17 +101,16 @@ class AnadirCliente(forms.ModelForm):
     SMART_HOME = forms.IntegerField(min_value=0, required=False)
     MO_ADICIONAL = forms.IntegerField(min_value=0, required=False)
 
-    def clean(self):
+    def clean_obligatorio(self):
         data = self.cleaned_data
-        email = data.get("email")
-        movil = data.get("movil")
-        fijo = data.get("fijo")
+        email = data["email")
+        movil = data"movil"]
+        fijo = data["fijo"]
 
         if email == '' and movil == '' and fijo == '':
-            raise forms.ValidationError(
+            raise ValidationError(
                 "Debes rellenar email, fijo o móvil"
             )
-            return 
         return data
     class Meta:
         model = Clientes
