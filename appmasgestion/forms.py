@@ -103,7 +103,7 @@ class AnadirCliente(forms.ModelForm):
 
     def clean_obligatorio(self):
         data = self.cleaned_data
-        email = data["email")
+        email = data["email"]
         movil = data"movil"]
         fijo = data["fijo"]
 
