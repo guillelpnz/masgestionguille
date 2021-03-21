@@ -110,8 +110,8 @@ def editar_cliente(request):
             cliente.save()
             # print("holaaaaaaaa")
 
-
-    return render(request, 'editar_cliente.html', {'form':form}, context)
+    context['form'] = form
+    return render(request, 'editar_cliente.html', context)
 
 def buscador_clientes(request):
     context = {}
