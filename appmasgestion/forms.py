@@ -1,4 +1,3 @@
-from functools import partial
 from django import forms
 from appmasgestion.models import Clientes
 
@@ -19,11 +18,9 @@ class AnadirCliente(forms.ModelForm):
         (CLIENTE_CARTERA, 'Cliente de cartera'),
     ]
 
-    DateInput = partial(forms.DateInput, {'class': 'datepicker'})
-    FechaContacto = partial(forms.DateInput, {'class': 'datepicker', 'id':'fechacontacto'})
-    fecha_contacto = forms.DateField(required=False, widget=FechaContacto())
-    fecha_venta = forms.DateField(required=False, widget=DateInput())
-    fecha_agendado = forms.DateField(required=False, widget=DateInput())
+    fecha_contacto = forms.DateField(required=False, widget= forms.DateInput(attrs={'type':'date'}))
+    fecha_venta = forms.DateField(required=False, widget= forms.DateInput(attrs={'type':'date'}))
+    fecha_agendado = forms.DateField(required=False, widget= forms.DateInput(attrs={'type':'date'}))
 
     # clientetienda, referenciado, clientecartera
     origen = forms.ChoiceField(required=False, label='Origen cliente', choices=ORIGENES)
