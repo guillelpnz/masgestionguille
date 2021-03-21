@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.http import HttpResponse
+from django.http import QueryDict
 from appmasgestion.forms import AnadirCliente
 from appmasgestion.models import Clientes
 from appmasgestion.funcs import estadisticas_comercial
@@ -122,7 +123,8 @@ def buscador_clientes(request):
 
     if not request.method == 'POST':
         if 'paginate_post_busq' in request.session:
-            request.POST = request.session['paginate_post_busq']
+            request.POST = QueryDict('').copy()
+            request.POST.update(request.session['paginate_post_busq'])
             request.method = 'POST'
 
     if request.method=='POST':
