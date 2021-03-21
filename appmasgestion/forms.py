@@ -109,6 +109,7 @@ class AnadirCliente(forms.ModelForm):
             raise forms.ValidationError(
                 "Debes rellenar email, fijo o móvil"
             )
+            return 
         return data
     class Meta:
         model = Clientes
