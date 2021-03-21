@@ -104,7 +104,7 @@ class AnadirCliente(forms.ModelForm):
     def clean_obligatorio(self):
         data = self.cleaned_data
         email = data["email"]
-        movil = data"movil"]
+        movil = data["movil"]
         fijo = data["fijo"]
 
         if email == '' and movil == '' and fijo == '':
@@ -112,6 +112,7 @@ class AnadirCliente(forms.ModelForm):
                 "Debes rellenar email, fijo o móvil"
             )
         return data
+
     class Meta:
         model = Clientes
         fields = ['cliente', 'DNI', 'comercial', 'CP', 'origen', 'fecha_contacto',
