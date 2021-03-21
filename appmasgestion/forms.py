@@ -105,7 +105,7 @@ class AnadirCliente(forms.ModelForm):
         movil = cleaned_data.get("movil")
         fijo = cleaned_data.get("fijo")
 
-        if email != '' and movil != '' and fijo != '':
+        if email == '' and movil == '' and fijo == '':
             raise ValidationError(
                 "Debes rellenar email, fijo o móvil"
             )
