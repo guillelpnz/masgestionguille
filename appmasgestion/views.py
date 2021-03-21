@@ -120,7 +120,13 @@ def buscador_clientes(request):
     context = {}
     # form = BuscarClientes
 
+    if not request.method == 'POST':
+        if 'paginate_post_busq' in request.session:
+            request.POST = request.session['paginate_post_busq']
+            request.method = 'POST'
+
     if request.method=='POST':
+        request.session['paginate_post_busq'] = request.POST
         filtro = request.POST.get("filtro", "")
         busqueda = request.POST.get("input-busqueda", "")
         fecha_inicio = request.POST.get("fecha_inicio")
