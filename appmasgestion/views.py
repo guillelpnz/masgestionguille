@@ -29,21 +29,24 @@ from appmasgestion.funcs import estadisticas_comercial
 # }
 
 def index(request):
-    busqueda = request.POST.get("input-busqueda", "")
     descargarcsv = request.POST.get("descargar-csv", "")
     context={}
 
-    if (request.method == "POST" and busqueda is not None):
-        # num_mes = None
-        # if busqueda.lower() in DIC_MESES.keys():
-        #     num_mes = DIC_MESES[busqueda]
-        clientes = Clientes.objects.filter(cliente__contains=busqueda) | Clientes.objects.filter(DNI__startswith=busqueda) | Clientes.objects.filter(estado__contains=busqueda) | Clientes.objects.filter(comercial__contains=busqueda) | Clientes.objects.filter(operador__contains=busqueda) | Clientes.objects.filter(movil__contains=busqueda) | Clientes.objects.filter(fijo__contains=busqueda) | Clientes.objects.filter(CP__contains=busqueda) | Clientes.objects.filter(origen__contains=busqueda) | Clientes.objects.filter(segmento__contains=busqueda)
+    if not request.method == 'POST':
+        if 'paginate_post' in request.session:
+            request.POST = request.session['paginate_post']
+            request.method = 'POST'
+    
+    if request.method == "POST":
+        request.session['paginate_post'] = request.POST
+        busqueda = request.POST.get("input-busqueda", "")
+        if busqueda != '':
+            busqueda=busqueda.UPPER()
+            clientes = Clientes.objects.filter(cliente__icontains=busqueda) | Clientes.objects.filter(DNI__icontains=busqueda) | Clientes.objects.filter(estado__icontains=busqueda) | Clientes.objects.filter(comercial__icontains=busqueda) | Clientes.objects.filter(operador__icontains=busqueda) | Clientes.objects.filter(movil__icontains=busqueda) | Clientes.objects.filter(fijo__icontains=busqueda) | Clientes.objects.filter(CP__icontains=busqueda) | Clientes.objects.filter(origen__icontains=busqueda) | Clientes.objects.filter(segmento__icontains=busqueda)
     else:
         clientes = Clientes.objects.all()
 
     clientes = clientes.order_by('-fecha_agendado')
-
-    
 
     paginator = Paginator(clientes, 25)
     page_number = request.GET.get('page')
@@ -128,25 +131,25 @@ def buscador_clientes(request):
         if busqueda != '':
             if filtro != '':
                 if filtro == "DNI":
-                    consulta1 = Q(DNI__contains=busqueda)
+                    consulta1 = Q(DNI__icontains=busqueda)
                 elif filtro == "cliente":
-                    consulta1 = Q(cliente__contains=busqueda)
+                    consulta1 = Q(cliente__icontains=busqueda)
                 elif filtro == "CP" :
-                    consulta1 = Q(CP__contains=busqueda)
+                    consulta1 = Q(CP__icontains=busqueda)
                 elif filtro == "comercial" :
-                    consulta1 = Q(comercial__contains=busqueda)
+                    consulta1 = Q(comercial__icontains=busqueda)
                 elif filtro == "origen" :
-                    consulta1 = Q(origen__contains=busqueda)
+                    consulta1 = Q(origen__icontains=busqueda)
                 elif filtro == "segmento" :
-                    consulta1 = Q(segmento__contains=busqueda)
+                    consulta1 = Q(segmento__icontains=busqueda)
                 elif filtro == "movil" :
-                    consulta1 = Q(movil__contains=busqueda)
+                    consulta1 = Q(movil__icontains=busqueda)
                 elif filtro == "fijo" :
-                    consulta1 = Q(fijo__contains=busqueda)
+                    consulta1 = Q(fijo__icontains=busqueda)
                 elif filtro == "operador" :
-                    consulta1 = Q(operador__contains=busqueda)
+                    consulta1 = Q(operador__icontains=busqueda)
                 elif filtro == "estado":
-                    consulta1 = Q(estado__contains=busqueda)
+                    consulta1 = Q(estado__icontains=busqueda)
         
         tarifas = request.POST.getlist("tarifas")
         if tarifas != '':
