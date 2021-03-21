@@ -41,7 +41,7 @@ def index(request):
         request.session['paginate_post'] = request.POST
         busqueda = request.POST.get("input-busqueda", "")
         if busqueda != '':
-            busqueda=busqueda.UPPER()
+            busqueda=busqueda.upper()
             clientes = Clientes.objects.filter(cliente__icontains=busqueda) | Clientes.objects.filter(DNI__icontains=busqueda) | Clientes.objects.filter(estado__icontains=busqueda) | Clientes.objects.filter(comercial__icontains=busqueda) | Clientes.objects.filter(operador__icontains=busqueda) | Clientes.objects.filter(movil__icontains=busqueda) | Clientes.objects.filter(fijo__icontains=busqueda) | Clientes.objects.filter(CP__icontains=busqueda) | Clientes.objects.filter(origen__icontains=busqueda) | Clientes.objects.filter(segmento__icontains=busqueda)
     else:
         clientes = Clientes.objects.all()
