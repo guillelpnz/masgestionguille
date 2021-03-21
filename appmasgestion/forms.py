@@ -100,13 +100,13 @@ class AnadirCliente(forms.ModelForm):
     MO_ADICIONAL = forms.IntegerField(min_value=0, required=False)
 
     def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get("email")
-        movil = cleaned_data.get("movil")
-        fijo = cleaned_data.get("fijo")
+        data = self.cleaned_data
+        email = data.get("email")
+        movil = data.get("movil")
+        fijo = data.get("fijo")
 
         if email == '' and movil == '' and fijo == '':
-            raise ValidationError(
+            raise forms.ValidationError(
                 "Debes rellenar email, fijo o móvil"
             )
 
