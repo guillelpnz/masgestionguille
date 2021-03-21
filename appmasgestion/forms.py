@@ -3,7 +3,7 @@ from django import forms
 from appmasgestion.models import Clientes
 
 class AnadirCliente(forms.ModelForm):
-    cliente = forms.CharField(required=False, widget= forms.TextInput(attrs={'placeholder':'Nombre cliente'}),
+    cliente = forms.CharField(required=False, widget= forms.TextInput(attrs={'placeholder':'Nombre cliente', 'required':True}),
                                label='') #nombre y apellidos del cliente
     DNI = forms.CharField(required=False, widget= forms.TextInput(attrs={'placeholder':'DNI'}), label='')
     comercial = forms.CharField(required=False, widget= forms.TextInput(attrs={'placeholder':'Comercial'}),
@@ -99,6 +99,16 @@ class AnadirCliente(forms.ModelForm):
     SMART_HOME = forms.IntegerField(min_value=0, required=False)
     MO_ADICIONAL = forms.IntegerField(min_value=0, required=False)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        movil = cleaned_data.get("movil")
+        fijo = cleaned_data.get("fijo")
+
+        if email != '' and movil != '' and fijo != '':
+            raise ValidationError(
+                "Debes rellenar email, fijo o móvil"
+            )
 
     class Meta:
         model = Clientes
