@@ -56,17 +56,17 @@ def estadisticas_comercial(nombre_comercial='', fecha_inicio='', fecha_final='')
         elif cliente.estado == 'VENDIDO':
             vendido += 1
 
-        if cliente.FMC_porta_FIJO > 0:
+        if not cliente.FMC_porta_FIJO is None and cliente.FMC_porta_FIJO > 0:
             total_ventas_valor += cliente.FMC_porta_FIJO
-        if cliente.FMC_Fijo_Nuevo > 0:
+        if not cliente.FMC_Fijo_Nuevo is None and cliente.FMC_Fijo_Nuevo > 0:
             total_ventas_valor += cliente.FMC_Fijo_Nuevo
-        if cliente.POSPAGO_MO > 0:
+        if not cliente.POSPAGO_MO is None and cliente.POSPAGO_MO > 0:
             total_ventas_valor += cliente.POSPAGO_MO
-        if cliente.POSPAGO_MB_DUO_MB > 0:
+        if not cliente.POSPAGO_MB_DUO_MB is None and cliente.POSPAGO_MB_DUO_MB > 0:
             total_ventas_valor += cliente.POSPAGO_MB_DUO_MB
-        if cliente.CROSS_Fijo_Portado > 0:
+        if not cliente.CROSS_Fijo_Portado is None and cliente.CROSS_Fijo_Portado > 0:
             total_ventas_valor += cliente.CROSS_Fijo_Portado
-        if cliente.CROSS_Fijo_Nuevo > 0:
+        if not cliente.CROSS_Fijo_Nuevo is None and cliente.CROSS_Fijo_Nuevo > 0:
             total_ventas_valor += cliente.CROSS_Fijo_Nuevo
 
     total_general=agendado+llamado+no_contesta+no_existe+no_interesado+ofertado+vendido
