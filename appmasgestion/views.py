@@ -47,8 +47,11 @@ def index(request):
     else:
         clientes = Clientes.objects.all()
 
-    clientes = clientes.order_by('-fecha_agendado')
-
+    try:
+        clientes = clientes.order_by('-fecha_agendado')
+    except:
+        clientes = Clientes.objects.all()
+    
     paginator = Paginator(clientes, 25)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
